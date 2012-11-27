@@ -7,6 +7,12 @@
 
     <!--Application Resources-->
     <Application.Resources>
+        <Color x:Key="AppBackgroundColor">#FFFFFFFF</Color>
+        <SolidColorBrush x:Key="AppBackgroundBrush" Color="{StaticResource AppBackgroundColor}"/>
+        <Color x:Key="AppForegroundColor">#FF000000</Color>
+        <SolidColorBrush x:Key="AppForegroundBrush" Color="{StaticResource AppForegroundColor}"/>
+        
+        <FontFamily x:Key="EuroFurence">/Resources/fonts/eurof35.ttf#eurofurence light</FontFamily>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
