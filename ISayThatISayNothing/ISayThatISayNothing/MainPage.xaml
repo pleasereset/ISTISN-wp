@@ -15,6 +15,50 @@
     shell:SystemTray.IsVisible="True" 
     shell:SystemTray.BackgroundColor="{StaticResource AppBackgroundColor}"
     shell:SystemTray.ForegroundColor="{StaticResource AppForegroundColor}">
+	<phone:PhoneApplicationPage.Resources>
+		<Storyboard x:Name="LoadingAnimation">
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AnimationOverlay">
+				<DiscreteObjectKeyFrame KeyTime="0">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="rectangle">
+				<EasingDoubleKeyFrame KeyTime="0" Value="250"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="30">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<QuadraticEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="rectangle">
+				<EasingDoubleKeyFrame KeyTime="0" Value="100"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<QuadraticEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Name="LoadingEndedAnimation">
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AnimationOverlay">
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.6">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="rectangle">
+				<SplineDoubleKeyFrame KeyTime="0" Value="30"/>
+				<SplineDoubleKeyFrame KeyTime="0:0:0.6" Value="250"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="rectangle">
+				<SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+				<SplineDoubleKeyFrame KeyTime="0:0:0.6" Value="100"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</phone:PhoneApplicationPage.Resources>
 
     <!--Data context is set to sample data above and LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource AppBackgroundBrush}">
@@ -26,22 +70,42 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="I SAY THAT, I SAY NOTHING..." Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppForegroundBrush}"/>
-            <TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource AppForegroundBrush}"/>
+            <!--<TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource AppForegroundBrush}"/>-->
         </StackPanel>
 
         <!--ContentPanel contains ListBox and ListBox ItemTemplate. Place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="MainListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="MainListBox_SelectionChanged">
+            <ListBox x:Name="MainListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                      <StackPanel Margin="0,0,0,17" Width="432" Height="78">
-                            <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontFamily="{StaticResource EuroFurence}"  Foreground="{StaticResource AppForegroundBrush}"/>
-                            <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}"/>
-                      </StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="Resources/images/quote_left.png"/>
+                            <Image Grid.Column="2" Source="Resources/images/quote_right.png"/>
+                            <StackPanel Margin="0,0,0,17" Width="432" Grid.Column="1">
+                                <TextBlock Text="{Binding message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontFamily="{StaticResource EuroFurence}"  Foreground="{StaticResource AppForegroundBrush}"/>
+                                <TextBlock Text="{Binding author}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}"/>
+                                <TextBlock Text="{Binding creationdate}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}"/>
+                            </StackPanel>
+                        </Grid>
+                            
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+			<Grid x:Name="AnimationOverlay" Visibility="Collapsed">
+				<Rectangle x:Name="rectangle" Fill="Red" Margin="238,366,0,0" RenderTransformOrigin="0.5,0.5">
+					<Rectangle.RenderTransform>
+						<CompositeTransform Rotation="-15" TranslateY="30"/>
+					</Rectangle.RenderTransform>
+				</Rectangle>
+			</Grid>
         </Grid>
     </Grid>
  
 </phone:PhoneApplicationPage>
+   

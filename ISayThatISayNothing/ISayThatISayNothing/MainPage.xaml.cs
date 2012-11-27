@@ -23,20 +23,18 @@ namespace ISayThatISayNothing
             // Set the data context of the listbox control to the sample data
             DataContext = App.ViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            App.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
         }
 
-        // Handle selection changed on ListBox
-        private void MainListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            // If selected index is -1 (no selection) do nothing
-            if (MainListBox.SelectedIndex == -1)
-                return;
-
-            // Navigate to the new page
-            NavigationService.Navigate(new Uri("/DetailsPage.xaml?selectedItem=" + MainListBox.SelectedIndex, UriKind.Relative));
-
-            // Reset selected index to -1 (no selection)
-            MainListBox.SelectedIndex = -1;
+            if (e.PropertyName == "IsDataLoaded")
+            {
+                if (App.ViewModel.IsDataLoaded == true)
+                {
+                    LoadingEndedAnimation.Begin();
+                }
+            }
         }
 
         // Load data for the ViewModel Items
@@ -45,6 +43,7 @@ namespace ISayThatISayNothing
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
+                LoadingAnimation.Begin();
             }
         }
     }
