@@ -97,7 +97,6 @@
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">
