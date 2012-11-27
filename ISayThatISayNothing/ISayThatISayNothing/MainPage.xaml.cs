@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace ISayThatISayNothing
 {
@@ -19,20 +20,26 @@ namespace ISayThatISayNothing
         public MainPage()
         {
             InitializeComponent();
-
-            // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
+            SystemTray.SetProgressIndicator(this, new ProgressIndicator() { IsIndeterminate = true });
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+
             App.ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+            DataContext = App.ViewModel;
         }
 
-        void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "IsDataLoaded")
             {
                 if (App.ViewModel.IsDataLoaded == true)
                 {
                     LoadingEndedAnimation.Begin();
+                    SystemTray.ProgressIndicator.IsVisible = false;
+                }
+                else
+                {
+                    LoadingAnimation.Begin();
+                    SystemTray.ProgressIndicator.IsVisible = true;
                 }
             }
         }
@@ -45,6 +52,11 @@ namespace ISayThatISayNothing
                 App.ViewModel.LoadData();
                 LoadingAnimation.Begin();
             }
+        }
+
+        private void lefrancais_Tap(object sender, GestureEventArgs e)
+        {
+            App.ViewModel.LoadData(); // refresh data !
         }
     }
 }

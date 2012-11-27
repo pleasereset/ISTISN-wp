@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
@@ -24,7 +25,7 @@
 					</DiscreteObjectKeyFrame.Value>
 				</DiscreteObjectKeyFrame>
 			</ObjectAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="rectangle">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lefrancais">
 				<EasingDoubleKeyFrame KeyTime="0" Value="250"/>
 				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="30">
 					<EasingDoubleKeyFrame.EasingFunction>
@@ -32,7 +33,7 @@
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="rectangle">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lefrancais">
 				<EasingDoubleKeyFrame KeyTime="0" Value="100"/>
 				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
 					<EasingDoubleKeyFrame.EasingFunction>
@@ -43,68 +44,96 @@
 		</Storyboard>
 		<Storyboard x:Name="LoadingEndedAnimation">
 			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AnimationOverlay">
-				<DiscreteObjectKeyFrame KeyTime="0:0:0.6">
+				<DiscreteObjectKeyFrame KeyTime="0:0:1">
 					<DiscreteObjectKeyFrame.Value>
 						<Visibility>Visible</Visibility>
 					</DiscreteObjectKeyFrame.Value>
 				</DiscreteObjectKeyFrame>
 			</ObjectAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="rectangle">
-				<SplineDoubleKeyFrame KeyTime="0" Value="30"/>
-				<SplineDoubleKeyFrame KeyTime="0:0:0.6" Value="250"/>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lefrancais">
+				<SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="30"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="250">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<BackEase EasingMode="EaseInOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="rectangle">
-				<SplineDoubleKeyFrame KeyTime="0" Value="0"/>
-				<SplineDoubleKeyFrame KeyTime="0:0:0.6" Value="100"/>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lefrancais">
+				<SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="100">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<BackEase EasingMode="EaseInOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
+
+		<SolidColorBrush x:Key="ColorTop" Color="Green"/>
+		<SolidColorBrush x:Key="ColorFlop" Color="Red"/>
+
+		<DataTemplate x:Key="IdiomTemplate">
+			<StackPanel Margin="0,0,0,17" Width="432" Grid.Column="1">
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Image Grid.Column="0" Source="/Resources/images/quotes_left.png" VerticalAlignment="Center"/>
+					<TextBlock Grid.Column="1" Text="{Binding message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontFamily="{StaticResource EuroFurence}"  Foreground="{StaticResource AppForegroundBrush}" FontSize="34.667"/>
+					<Image Grid.Column="2" Source="/Resources/images/quotes_right.png" VerticalAlignment="Center"/>
+				</Grid>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel Orientation="Horizontal" Margin="40,0,0,0">
+						<Path Fill="{StaticResource ColorTop}" Data="M 0,0 L 2,0 L 1,-1z" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center"/>
+						<TextBlock Text="{Binding nbTop}" Foreground="{StaticResource ColorTop}" VerticalAlignment="Center" Margin="4,0,8,0"/>
+						<Path Fill="{StaticResource ColorFlop}" Data="M 0,0 L 2,0 L 1,1z" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center"/>
+						<TextBlock Text="{Binding nbFlop}" Foreground="{StaticResource ColorFlop}" VerticalAlignment="Center" Margin="4,0,8,0"/>
+					</StackPanel>
+					<StackPanel Grid.Column="1">
+						<TextBlock Text="{Binding author}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}" HorizontalAlignment="Right"/>
+						<TextBlock Text="{Binding creationdate}" TextWrapping="Wrap" Margin="12,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Right" FontSize="16" Foreground="#FF7A7A7A"/>
+					</StackPanel>
+				</Grid>
+			</StackPanel>                            
+		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 
     <!--Data context is set to sample data above and LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource AppBackgroundBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+		<!--Pivot Control-->
+		<controls:Pivot Title="I SAY THAT, I SAY NOTHING...">
+			<controls:Pivot.Foreground>
+				<SolidColorBrush Color="{StaticResource AppForegroundColor}"/>
+			</controls:Pivot.Foreground>
 
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="I SAY THAT, I SAY NOTHING..." Style="{StaticResource PhoneTextNormalStyle}" Foreground="{StaticResource AppForegroundBrush}"/>
-            <!--<TextBlock x:Name="PageTitle" Text="page name" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}" Foreground="{StaticResource AppForegroundBrush}"/>-->
-        </StackPanel>
-
-        <!--ContentPanel contains ListBox and ListBox ItemTemplate. Place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <ListBox x:Name="MainListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="Resources/images/quote_left.png"/>
-                            <Image Grid.Column="2" Source="Resources/images/quote_right.png"/>
-                            <StackPanel Margin="0,0,0,17" Width="432" Grid.Column="1">
-                                <TextBlock Text="{Binding message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontFamily="{StaticResource EuroFurence}"  Foreground="{StaticResource AppForegroundBrush}"/>
-                                <TextBlock Text="{Binding author}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}"/>
-                                <TextBlock Text="{Binding creationdate}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}"/>
-                            </StackPanel>
-                        </Grid>
-                            
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-
-			<Grid x:Name="AnimationOverlay" Visibility="Collapsed">
-				<Rectangle x:Name="rectangle" Fill="Red" Margin="238,366,0,0" RenderTransformOrigin="0.5,0.5">
-					<Rectangle.RenderTransform>
-						<CompositeTransform Rotation="-15" TranslateY="30"/>
-					</Rectangle.RenderTransform>
-				</Rectangle>
-			</Grid>
-        </Grid>
+			<controls:PivotItem Header="récents">
+				<ListBox x:Name="MainListBox" Margin="0,0,-12,0" ItemsSource="{Binding Items}" ItemTemplate="{StaticResource IdiomTemplate}"/>
+			</controls:PivotItem>
+ 
+			<controls:PivotItem Header="tops"> 
+				<ListBox Margin="0,0,-12,0" ItemsSource="{Binding TopItems.View}" ItemTemplate="{StaticResource IdiomTemplate}"/>
+			</controls:PivotItem>
+				
+			<controls:PivotItem Header="flops">
+				<ListBox Margin="0,0,-12,0" ItemsSource="{Binding FlopItems.View}" ItemTemplate="{StaticResource IdiomTemplate}"/>				
+			</controls:PivotItem>
+		</controls:Pivot>	
+			
+		<Grid x:Name="AnimationOverlay">
+			<Rectangle x:Name="lefrancais" Margin="224.571,367.768,-0.233,-1.768" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Tap="lefrancais_Tap">
+				<Rectangle.Fill>
+					<ImageBrush ImageSource="/Resources/images/frenchmen.png"/>
+				</Rectangle.Fill>
+				<Rectangle.RenderTransform>
+					<CompositeTransform Rotation="-10" TranslateY="30"/>
+				</Rectangle.RenderTransform>
+			</Rectangle>
+		</Grid>
     </Grid>
  
 </phone:PhoneApplicationPage>

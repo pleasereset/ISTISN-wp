@@ -2,9 +2,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
+using System.Windows;
 
 namespace ISayThatISayNothing.API
 {
@@ -12,11 +11,23 @@ namespace ISayThatISayNothing.API
     {
         public const string ApiRoot = "http://www.isaythatisaynothing.com/api/";
         public const string GetAllMessagesWS = "messages/last/all";
+        public const string GetMessagesSinceWS = "messages/last/since/"; // + unix timestamp
 
         public static void GetAllMessages(Action<List<MessageModel>> callback)
         {
-            var webClient = new WebClient();
             var uri = new Uri(ApiRoot + GetAllMessagesWS);
+            DoMessageWSRequest(uri, callback);
+        }
+
+        public static void GetMessagesSince(DateTime since, Action<List<MessageModel>> callback)
+        {
+            var uri = new Uri(ApiRoot + GetMessagesSinceWS + Utils.DateTimeToUnixTimeStamp(since));
+            DoMessageWSRequest(uri, callback);
+        }
+
+        private static void DoMessageWSRequest(Uri WSUri, Action<List<MessageModel>> callback)
+        {
+            var webClient = new WebClient();
             webClient.DownloadStringCompleted += (object sender, DownloadStringCompletedEventArgs e) =>
             {
                 if (e.Cancelled == false && e.Error == null)
@@ -26,10 +37,11 @@ namespace ISayThatISayNothing.API
                 }
                 else
                 {
-                    // TODO
+                    MessageBox.Show("Shit happened !");
+                    callback(null);
                 }
             };
-            webClient.DownloadStringAsync(uri);
+            webClient.DownloadStringAsync(WSUri);
         }
 
         private static List<MessageModel> ParseMessageString(string messageString)
