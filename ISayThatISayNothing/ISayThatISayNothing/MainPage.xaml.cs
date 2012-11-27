@@ -58,5 +58,10 @@ namespace ISayThatISayNothing
         {
             App.ViewModel.LoadData(); // refresh data !
         }
+
+        private void AppBarAbout_Click(object sender, System.EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/About.xaml", UriKind.Relative));
+        }
     }
 }

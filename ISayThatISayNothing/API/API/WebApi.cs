@@ -12,6 +12,7 @@ namespace ISayThatISayNothing.API
         public const string ApiRoot = "http://www.isaythatisaynothing.com/api/";
         public const string GetAllMessagesWS = "messages/last/all";
         public const string GetMessagesSinceWS = "messages/last/since/"; // + unix timestamp
+        public const string GetPaginatedMessagesWS = "messages/last/paginate/"; // + page number
 
         public static void GetAllMessages(Action<List<MessageModel>> callback)
         {
@@ -22,6 +23,12 @@ namespace ISayThatISayNothing.API
         public static void GetMessagesSince(DateTime since, Action<List<MessageModel>> callback)
         {
             var uri = new Uri(ApiRoot + GetMessagesSinceWS + Utils.DateTimeToUnixTimeStamp(since));
+            DoMessageWSRequest(uri, callback);
+        }
+
+        public static void GetPaginatedMessages(int page, Action<List<MessageModel>> callback)
+        {
+            var uri = new Uri(ApiRoot + GetPaginatedMessagesWS + page);
             DoMessageWSRequest(uri, callback);
         }
 

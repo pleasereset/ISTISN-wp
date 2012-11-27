@@ -3,6 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISayThatISayNothing", "ISayThatISayNothing\ISayThatISayNothing.csproj", "{4E0FA0A4-9070-4A6D-BD31-4FC6C6286553}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduledTaskAgent", "ScheduledTaskAgent\ScheduledTaskAgent.csproj", "{5F3CA20C-6BEB-4E1E-A83E-1F5CE6BF1ACA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{83A479FB-1885-4C9A-8DD4-2C3E37477588} = {83A479FB-1885-4C9A-8DD4-2C3E37477588}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{83A479FB-1885-4C9A-8DD4-2C3E37477588}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,14 @@ Global
 		{4E0FA0A4-9070-4A6D-BD31-4FC6C6286553}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E0FA0A4-9070-4A6D-BD31-4FC6C6286553}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4E0FA0A4-9070-4A6D-BD31-4FC6C6286553}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5F3CA20C-6BEB-4E1E-A83E-1F5CE6BF1ACA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F3CA20C-6BEB-4E1E-A83E-1F5CE6BF1ACA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F3CA20C-6BEB-4E1E-A83E-1F5CE6BF1ACA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F3CA20C-6BEB-4E1E-A83E-1F5CE6BF1ACA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83A479FB-1885-4C9A-8DD4-2C3E37477588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A479FB-1885-4C9A-8DD4-2C3E37477588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83A479FB-1885-4C9A-8DD4-2C3E37477588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83A479FB-1885-4C9A-8DD4-2C3E37477588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

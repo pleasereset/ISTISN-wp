@@ -25,21 +25,47 @@
 					</DiscreteObjectKeyFrame.Value>
 				</DiscreteObjectKeyFrame>
 			</ObjectAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lefrancais">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LeFrancais">
 				<EasingDoubleKeyFrame KeyTime="0" Value="250"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="30">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="30">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<QuadraticEase EasingMode="EaseOut"/>
+						<QuinticEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lefrancais">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeFrancais">
 				<EasingDoubleKeyFrame KeyTime="0" Value="100"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="0">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<QuadraticEase EasingMode="EaseOut"/>
+						<QuinticEase EasingMode="EaseOut"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Projection).(PlaneProjection.RotationX)" Storyboard.TargetName="Bulle">
+				<EasingDoubleKeyFrame KeyTime="0" Value="80"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="80"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+					<EasingDoubleKeyFrame.EasingFunction>
+						<BackEase EasingMode="EaseOut"/>
+					</EasingDoubleKeyFrame.EasingFunction>
+				</EasingDoubleKeyFrame>
+			</DoubleAnimationUsingKeyFrames>
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Bulle">
+				<DiscreteObjectKeyFrame KeyTime="0">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Collapsed</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.6">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Bulle">
+				<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.6" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="1"/>
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
 		<Storyboard x:Name="LoadingEndedAnimation">
@@ -50,22 +76,38 @@
 					</DiscreteObjectKeyFrame.Value>
 				</DiscreteObjectKeyFrame>
 			</ObjectAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="lefrancais">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="LeFrancais">
 				<SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="30"/>
 				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="250">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<BackEase EasingMode="EaseInOut"/>
+						<BackEase EasingMode="EaseInOut" Amplitude="0.5"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="lefrancais">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="LeFrancais">
 				<SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
 				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="100">
 					<EasingDoubleKeyFrame.EasingFunction>
-						<BackEase EasingMode="EaseInOut"/>
+						<BackEase EasingMode="EaseInOut" Amplitude="0.5"/>
 					</EasingDoubleKeyFrame.EasingFunction>
 				</EasingDoubleKeyFrame>
 			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Bulle">
+				<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Bulle">
+				<DiscreteObjectKeyFrame KeyTime="0">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Visible</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+					<DiscreteObjectKeyFrame.Value>
+						<Visibility>Collapsed</Visibility>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
 		</Storyboard>
 
 		<SolidColorBrush x:Key="ColorTop" Color="Green"/>
@@ -125,7 +167,18 @@
 		</controls:Pivot>	
 			
 		<Grid x:Name="AnimationOverlay">
-			<Rectangle x:Name="lefrancais" Margin="224.571,367.768,-0.233,-1.768" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Tap="lefrancais_Tap">
+			<Grid x:Name="Bulle" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,55,194" Visibility="Collapsed" CacheMode="BitmapCache">
+				<Grid.Projection>
+					<PlaneProjection CenterOfRotationY="1"/>
+				</Grid.Projection>
+				<Image Source="/Resources/images/bulle.png" Stretch="None"/>
+				<TextBlock Text="Chargement..." FontFamily="{StaticResource EuroFurence}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="48" Margin="42,61,37,86">
+					<TextBlock.Foreground>
+						<SolidColorBrush Color="{StaticResource AppForegroundColor}"/>
+					</TextBlock.Foreground>
+				</TextBlock>
+			</Grid>
+			<Rectangle x:Name="LeFrancais" Margin="224.571,367.768,-0.233,-1.768" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Tap="lefrancais_Tap" CacheMode="BitmapCache">
 				<Rectangle.Fill>
 					<ImageBrush ImageSource="/Resources/images/frenchmen.png"/>
 				</Rectangle.Fill>
@@ -135,6 +188,13 @@
 			</Rectangle>
 		</Grid>
     </Grid>
- 
+	
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+			<shell:ApplicationBar.MenuItems>
+				<shell:ApplicationBarMenuItem Text="A propos..." Click="AppBarAbout_Click"/>
+			</shell:ApplicationBar.MenuItems>
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar> 
 </phone:PhoneApplicationPage>
    
