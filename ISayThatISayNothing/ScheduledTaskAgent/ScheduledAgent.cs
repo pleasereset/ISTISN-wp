@@ -76,7 +76,7 @@ namespace ScheduledTaskAgent
             var MainTile = ShellTile.ActiveTiles.First();
             if (MainTile != null)
             {
-                MainTile.Update(new StandardTileData() { BackContent = message.message, BackTitle = message.author });
+				MainTile.Update(new StandardTileData() { BackContent = message.message, BackTitle = message.author });
             }
         }
     }

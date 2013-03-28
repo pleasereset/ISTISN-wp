@@ -5,6 +5,7 @@
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
 	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768" 
@@ -114,7 +115,7 @@
 		<SolidColorBrush x:Key="ColorFlop" Color="Red"/>
 
 		<DataTemplate x:Key="IdiomTemplate">
-			<StackPanel Margin="0,0,0,17" Width="432" Grid.Column="1">
+			<StackPanel Margin="12,0,0,17" Width="432" Grid.Column="1">
 				<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="Auto"/>
@@ -130,11 +131,19 @@
 						<ColumnDefinition Width="*"/>
 						<ColumnDefinition Width="Auto"/>
 					</Grid.ColumnDefinitions>
-					<StackPanel Orientation="Horizontal" Margin="40,0,0,0">
-						<Path Fill="{StaticResource ColorTop}" Data="M 0,0 L 2,0 L 1,-1z" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding nbTop}" Foreground="{StaticResource ColorTop}" VerticalAlignment="Center" Margin="4,0,8,0"/>
-						<Path Fill="{StaticResource ColorFlop}" Data="M 0,0 L 2,0 L 1,1z" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center"/>
-						<TextBlock Text="{Binding nbFlop}" Foreground="{StaticResource ColorFlop}" VerticalAlignment="Center" Margin="4,0,8,0"/>
+					<StackPanel Orientation="Horizontal" Margin="30,0,0,0">
+                        <Button toolkit:TiltEffect.IsTiltEnabled="True" BorderThickness="0" Padding="0" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="{StaticResource ColorTop}" Data="M 0,0 L 2,0 L 1,-1z" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding nbTop}" Foreground="{StaticResource ColorTop}" VerticalAlignment="Center" Margin="4,0,8,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button toolkit:TiltEffect.IsTiltEnabled="True" BorderThickness="0" Padding="0" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Fill="{StaticResource ColorFlop}" Data="M 0,0 L 2,0 L 1,1z" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding nbFlop}" Foreground="{StaticResource ColorFlop}" VerticalAlignment="Center" Margin="4,0,8,0"/>
+                            </StackPanel>
+                        </Button>				
 					</StackPanel>
 					<StackPanel Grid.Column="1">
 						<TextBlock Text="{Binding author}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}"  Foreground="{StaticResource AppForegroundBrush}" HorizontalAlignment="Right"/>
@@ -145,8 +154,33 @@
 		</DataTemplate>
 	</phone:PhoneApplicationPage.Resources>
 
+    <!--Transitions-->
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
     <!--Data context is set to sample data above and LayoutRoot contains the root grid where all other page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource AppBackgroundBrush}">
+        <!--Avoid the black 1px line between the SystemTray and the ApplicationPage on HD screens-->
+        <Rectangle Fill="{StaticResource AppBackgroundBrush}" Height="10" VerticalAlignment="Top" Margin="0,-2,0,0"/>
+        
 		<!--Pivot Control-->
 		<controls:Pivot Title="I SAY THAT, I SAY NOTHING...">
 			<controls:Pivot.Foreground>
@@ -178,7 +212,7 @@
 					</TextBlock.Foreground>
 				</TextBlock>
 			</Grid>
-			<Rectangle x:Name="LeFrancais" Margin="224.571,367.768,-0.233,-1.768" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Tap="lefrancais_Tap" CacheMode="BitmapCache">
+			<Rectangle x:Name="LeFrancais" Margin="224.571,367.768,-0.233,-1.768" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" CacheMode="BitmapCache" Tap="LeFrancais_Tap">
 				<Rectangle.Fill>
 					<ImageBrush ImageSource="/Resources/images/frenchmen.png"/>
 				</Rectangle.Fill>

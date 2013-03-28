@@ -44,7 +44,7 @@ namespace ISayThatISayNothing.API
                 }
                 else
                 {
-                    MessageBox.Show("Shit happened !");
+                    MessageBox.Show("Impossible de télécharger les dernières quotes. Vérifiez votre connectivité et cliquez sur Marcel le français en bas de votre écran pour réessayer.", "Flute !", MessageBoxButton.OK);
                     callback(null);
                 }
             };

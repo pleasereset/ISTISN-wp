@@ -4,8 +4,8 @@
     xmlns:local="clr-namespace:ISayThatISayNothing"
     xmlns:models="clr-namespace:ISayThatISayNothing.Models">
     
-    <local:MainViewModel.Items>
+    <!--<local:MainViewModel.Items>
         <models:MessageModel message="Coucou tu veux voir ma bite" author="Pierre" creationdate="Hier" nbFlop="0" nbTop="0"/>
-    </local:MainViewModel.Items>
+    </local:MainViewModel.Items>-->
     
 </local:MainViewModel>

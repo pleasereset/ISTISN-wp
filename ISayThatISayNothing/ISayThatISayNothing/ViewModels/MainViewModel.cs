@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 
@@ -54,25 +55,35 @@ namespace ISayThatISayNothing
         public void LoadData()
         {
             IsDataLoaded = false;
-            WebApi.GetAllMessages(OnDataLoaded);
-            //WebApi.GetMessagesSince(new DateTime(2012, 11, 27), OnDataLoaded);
+
+            try
+            {
+                WebApi.GetAllMessages(OnDataLoaded);
+                //WebApi.GetMessagesSince(new DateTime(2012, 11, 27), OnDataLoaded);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void OnDataLoaded(List<MessageModel> messages)
         {
-            this.Items.Clear();
-            foreach (MessageModel mm in messages)
+            if (messages != null)
             {
-                this.Items.Add(mm);
+                this.Items.Clear();
+                foreach (MessageModel mm in messages)
+                {
+                    this.Items.Add(mm);
+                }
+
+                // Store the last update time
+                IsolatedStorageSettings.ApplicationSettings[setLastDBUpdateKey] = DateTime.Now;
+                IsolatedStorageSettings.ApplicationSettings.Save();
+
+                // Update the tile with the last message seen
+                if (messages[0] != null) SetTileData(messages[0]);
             }
-
-            // Store the last update time
-            IsolatedStorageSettings.ApplicationSettings[setLastDBUpdateKey] = DateTime.Now;
-            IsolatedStorageSettings.ApplicationSettings.Save();
-
-            // Update the tile with the last message seen
-            if(messages[0] != null) SetTileData(messages[0]);
-
             this.IsDataLoaded = true;
         }
 
@@ -81,7 +92,7 @@ namespace ISayThatISayNothing
             var MainTile = ShellTile.ActiveTiles.First();
             if (MainTile != null)
             {
-                MainTile.Update(new StandardTileData() { BackContent = message.message, BackTitle = message.author });
+				MainTile.Update(new StandardTileData() { BackContent = message.message, BackTitle = message.author });
             }
         }
 

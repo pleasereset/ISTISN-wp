@@ -54,14 +54,14 @@ namespace ISayThatISayNothing
             }
         }
 
-        private void lefrancais_Tap(object sender, GestureEventArgs e)
-        {
-            App.ViewModel.LoadData(); // refresh data !
-        }
-
         private void AppBarAbout_Click(object sender, System.EventArgs e)
         {
             NavigationService.Navigate(new Uri("/About.xaml", UriKind.Relative));
         }
+
+		private void LeFrancais_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			App.ViewModel.LoadData(); // refresh data !
+		}
     }
 }
